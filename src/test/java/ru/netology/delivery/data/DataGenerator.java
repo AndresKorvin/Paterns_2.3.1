@@ -1,23 +1,12 @@
 package ru.netology.delivery.data;
 
-import com.codeborne.selenide.Configuration;
 import com.github.javafaker.Faker;
 import lombok.Value;
-import lombok.val;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
-import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Locale;
 import java.util.Random;
-
-import static com.codeborne.selenide.Selenide.$$;
-import static com.codeborne.selenide.Selenide.open;
 
 
 public class DataGenerator {

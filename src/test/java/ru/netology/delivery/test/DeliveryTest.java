@@ -58,7 +58,7 @@ class DeliveryTest {
 
     @ParameterizedTest
     @CsvSource({
-        "Игорь-Геннадьевич", "Фёкла Васильевна"
+            "Игорь-Геннадьевич", "Фёкла Васильевна"
     })
     void nameTesting(String name) {
 
