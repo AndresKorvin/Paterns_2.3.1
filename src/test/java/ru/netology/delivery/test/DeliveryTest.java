@@ -9,19 +9,14 @@ import org.openqa.selenium.Keys;
 import ru.netology.delivery.data.DataGenerator;
 
 import java.time.Duration;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 import static com.codeborne.selenide.Condition.exactText;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
+import static ru.netology.delivery.data.DataGenerator.generateDate;
 
 
 class DeliveryTest {
-
-    public String setDate(int plusDays) {
-        return LocalDate.now().plusDays(plusDays).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
-    }
 
     @BeforeEach
     void setup() {
@@ -44,7 +39,7 @@ class DeliveryTest {
 
         $("[data-test-id='city'] .input__control").setValue(administrativeCenter);
         $("[data-test-id='date'] .input__control").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.DELETE);
-        $("[data-test-id='date'] input").setValue(setDate(3));
+        $("[data-test-id='date'] input").setValue(generateDate (3));
         $("[data-test-id='name'] .input__control").setValue("Имя");
         $("[data-test-id='phone'] .input__control").setValue("+79999999999");
         $("[data-test-id='agreement']").click();
@@ -52,7 +47,7 @@ class DeliveryTest {
 
         $("[data-test-id=city].input_invalid .input__sub").shouldNotBe(visible);
         $(".notification__content").shouldBe(visible, Duration.ofSeconds(2));
-        $("[data-test-id='success-notification'] .notification__content").shouldHave(exactText("Встреча успешно запланирована на " + setDate(3)));
+        $("[data-test-id='success-notification'] .notification__content").shouldHave(exactText("Встреча успешно запланирована на " + generateDate(3)));
 
     }
 
@@ -64,7 +59,7 @@ class DeliveryTest {
 
         $("[data-test-id='city'] .input__control").setValue("Майкоп");
         $("[data-test-id='date'] .input__control").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.DELETE);
-        $("[data-test-id='date'] input").setValue(setDate(3));
+        $("[data-test-id='date'] input").setValue(generateDate(3));
         $("[data-test-id='name'] .input__control").setValue(name);
         $("[data-test-id='phone'] .input__control").setValue("+79999999999");
         $("[data-test-id='agreement']").click();
@@ -72,7 +67,7 @@ class DeliveryTest {
 
         $("[data-test-id=city].input_invalid .input__sub").shouldNotBe(visible);
         $(".notification__content").shouldBe(visible, Duration.ofSeconds(2));
-        $("[data-test-id='success-notification'] .notification__content").shouldHave(exactText("Встреча успешно запланирована на " + setDate(3)));
+        $("[data-test-id='success-notification'] .notification__content").shouldHave(exactText("Встреча успешно запланирована на " + generateDate(3)));
 
     }
 
@@ -97,7 +92,7 @@ class DeliveryTest {
 
         $("[data-test-id='city'] .input__control").setValue("Москва");
         $("[data-test-id='date'] .input__control").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.DELETE);
-        $("[data-test-id='date'] input").setValue(setDate(3));
+        $("[data-test-id='date'] input").setValue(generateDate(3));
         $("[data-test-id='name'] .input__control").setValue(name);
         $("[data-test-id='phone'] .input__control").setValue("+79996665544");
         $("[data-test-id='agreement']").click();
@@ -112,9 +107,9 @@ class DeliveryTest {
     void shouldSuccessfulPlanAndReplanMeeting() {
         var validUser = DataGenerator.Registration.generateUser("ru");
         var daysToAddForFirstMeeting = 4;
-        var firstMeetingDate = DataGenerator.generateDate(daysToAddForFirstMeeting);
+        var firstMeetingDate = generateDate(daysToAddForFirstMeeting);
         var daysToAddForSecondMeeting = 7;
-        var secondMeetingDate = DataGenerator.generateDate(daysToAddForSecondMeeting);
+        var secondMeetingDate = generateDate(daysToAddForSecondMeeting);
 
         $("[data-test-id='city'] .input__control").setValue(validUser.getCity());
         $("[data-test-id='date'] .input__control").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.DELETE);
